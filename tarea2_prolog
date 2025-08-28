@@ -1,0 +1,19 @@
+se_conectan_y_cuestan(vancouver, edmonton, 16).
+se_conectan_y_cuestan(vancouver, calgary, 13).
+se_conectan_y_cuestan(calgary, regina, 14).
+se_conectan_y_cuestan(calgary, edmonton, 4).
+se_conectan_y_cuestan(regina, winnipeg, 4).
+se_conectan_y_cuestan(regina, saskatoon, 7).
+se_conectan_y_cuestan(edmonton, saskatoon, 12).
+se_conectan_y_cuestan(saskatoon, winnipeg, 20).
+se_conectan_y_cuestan(saskatoon, calgary, 9).
+
+%% reglas 
+tiene_conexiones(X):- 
+    se_conectan_y_cuestan(X, _, _).
+se_conectan(X, Y):- 
+    se_conectan_y_cuestan(X, Y, _);  (se_conectan_y_cuestan(X, Z,_), se_conectan_y_cuestan(Z, Y,_)).
+conexion_intermedia(X, Y):-
+    se_conectan(X, Z), se_conectan(Z, Y).
+
+    
