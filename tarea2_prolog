@@ -17,3 +17,4 @@ conexion_intermedia(X, Y):-
     se_conectan(X, Z), se_conectan(Z, Y).
 
     
+%Hola como estas
