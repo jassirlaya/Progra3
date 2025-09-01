@@ -1,0 +1,63 @@
+madre_de(jacqueline, marge).
+madre_de(jacqueline, patty).
+madre_de(jacqueline, selma).
+madre_de(selma, ling).
+madre_de(marge, maggie).
+madre_de(marge,lisa).
+madre_de(marge,bart).
+madre_de(mona, homero).
+madre_de(mona,herbert).
+padre_de(homero,bart).
+padre_de(homero,lisa).
+padre_de(homero,maggie).
+padre_de(abraham,homero).
+padre_de(abraham,herbert).
+padre_de(clancy,marge).
+padre_de(clancy,patty).
+padre_de(clancy,selma).
+es_hombre(bart).
+es_hombre(herbert).
+es_mujer(patty).
+es_mujer(ling).
+es_mujer(maggie).
+es_mujer(lisa).
+
+
+
+%REGLAS
+abuela_de(Abuela, Nietx):-
+    (madre_de(Abuela, Madre); madre_de(Abuela, Padre)), (madre_de(Madre, Nietx); padre_de(Padre, Nietx)).
+abuelo_de(Abuelo, Nietx):-
+    (padre_de(Abuelo, Madre); padre_de(Abuelo, Padre)), (madre_de(Madre, Nietx); padre_de(Padre, Nietx)).
+hijo_de(X,Y):- 
+    es_hombre(X),(padre_de(Y,X); madre_de(Y,X)).
+hija_de(X,Y):- 
+    es_mujer(X), (padre_de(Y,X); madre_de(Y,X)). 
+hermano_de(X,Y):- 
+    (es_hombre(X)), ((padre_de(Padre, X); madre_de(Madre, X)),(padre_de(Padre, Y); madre_de(Madre, Y))).
+hermana_de(X,Y):- 
+    (es_mujer(X)), ((padre_de(Padre, X); madre_de(Madre, X)),(padre_de(Padre, Y); madre_de(Madre, Y))).
+tio_de(X,Y):- 
+    (es_hombre(X)),((padre_de(Padre, Y), hermanx_de(X, Padre)); (madre_de(Madre, Y), hermanx_de(X, Madre))).
+tia_de(X,Y):- 
+    (es_mujer(X)),((padre_de(Padre, Y), hermanx_de(X, Padre)); (madre_de(Madre, Y), hermanx_de(X, Madre))).
+primo_de(X,Y):- 
+    (es_hombre(X)),(((padre_de(Tix, Y); madre_de(Tix, Y)), tix_de(Tix, X)); ((padre_de(Tix, X); madre_de(Tix, X),tix_de(Tix,Y)))).
+prima_de(X,Y):- 
+    (es_mujer(X)),(((padre_de(Tix, Y); madre_de(Tix, Y)), tix_de(Tix, X)); ((padre_de(Tix, X); madre_de(Tix, X),tix_de(Tix,Y)))).
+
+%Ejercicio 2
+
+%Hechos
+es_estadounidense(coronelwest).
+enemigo_de(estadosunidos,coreadelsur).
+le_vende_armas_a(coronelwest,coreadelsur).
+
+%Reglas
+es_nacion_hostil(X):-
+    enemigo_de(estadosunidos,X).
+
+es_criminal(Y):-
+    es_estadounidense(Y),
+    le_vende_armas_a(Y,X),
+    es_nacion_hostil(X).
